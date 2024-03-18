@@ -36,8 +36,7 @@ import framework.presentation.game_football.GameTeamsPlayerScreen
 import model.NavigatorItem
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.vectorResource
-import res.ResMain
-import res.sports
+import res.Asset
 
 data class MenuScreen(val id: String = "Home"): Screen {
 
@@ -63,8 +62,8 @@ data class MenuScreen(val id: String = "Home"): Screen {
             ),
             NavigatorItem(
                 title = "Historico",
-                icon = vectorResource(resource = ResMain.drawable.sports),
-                iconSelected = vectorResource(resource = ResMain.drawable.sports)
+                icon = vectorResource(resource = Asset.SPORTS),
+                iconSelected = vectorResource(resource = Asset.SPORTS)
             ),
             NavigatorItem(
                 title = "Configuration",

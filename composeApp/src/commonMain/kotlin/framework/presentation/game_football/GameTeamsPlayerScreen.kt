@@ -21,10 +21,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
-import res.ResMain
-import res.bola
-import res.camisaAzul
-import res.camisaCe
+import res.Asset
+
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
@@ -40,7 +38,7 @@ fun GameTeamsPlayerScreen() {
         ) {
             Image(
                 modifier = Modifier.weight(1f),
-                painter = painterResource(resource = ResMain.assert.camisaAzul),
+                painter = painterResource(resource = Asset.CAMISA_AZUL),
                 contentDescription = null
             )
             Column(
@@ -59,7 +57,7 @@ fun GameTeamsPlayerScreen() {
                     )
                     Image(
                         modifier = Modifier.weight(1f),
-                        painter = painterResource(resource = ResMain.assert.bola),
+                        painter = painterResource(resource = Asset.BALL),
                         contentDescription = null
                     )
                     Text("0",
@@ -83,7 +81,7 @@ fun GameTeamsPlayerScreen() {
             }
             Image(
                 modifier = Modifier.weight(1f),
-                painter = painterResource(resource = ResMain.assert.camisaCe),
+                painter = painterResource(resource = Asset.CAMISA_CE),
                 contentDescription = null
             )
         }
