@@ -1,0 +1,27 @@
+CREATE TABLE Game (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    team1 INTEGER NOT NULL,
+    team2 INTEGER NOT NULL,
+    dateTimeInit TEXT NOT NULL,
+    dateTimeFinish TEXT NOT NULL,
+    dateTimeCreated TEXT NOT NULL,
+    dateTimeUpdate TEXT NOT NULL,
+    minuteTimeGame INTEGER NOT NULL,
+    time INTEGER NOT NULL,
+    maxTime INTEGER NOT NULL,
+    isInitGame INTEGER NOT NULL,
+    isFinishedGame INTEGER NOT NULL
+);
+
+insert:
+INSERT OR REPLACE INTO Game(id, team1, team2, dateTimeInit, dateTimeFinish, dateTimeCreated, dateTimeUpdate, minuteTimeGame, time, maxTime, isInitGame, isFinishedGame)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+getAll:
+SELECT * FROM Game;
+
+findGameNotFinished:
+SELECT * FROM Game WHERE isFinishedGame = 0 LIMIT 1;
+
+deleteAll:
+DELETE FROM Game;

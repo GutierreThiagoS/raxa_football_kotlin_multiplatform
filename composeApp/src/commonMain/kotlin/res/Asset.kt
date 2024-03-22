@@ -42,4 +42,10 @@ object Asset {
         DrawableResource(
                     "drawable/baseline_sports.xml"
         )
+
+    val ANIMATION_SOCCER: DrawableResource =
+        DrawableResource(
+            "drawable/lottie/animation_soccer.json"
+        )
+
 }

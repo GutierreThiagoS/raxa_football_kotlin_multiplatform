@@ -1,0 +1,32 @@
+
+CREATE TABLE PlayerSoccer (
+     id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+     name TEXT NOT NULL,
+     level INTEGER NOT NULL,
+     presented INTEGER NOT NULL
+);
+
+getAll:
+SELECT *
+FROM PlayerSoccer;
+
+getAllPlayesSoccerNotTeam:
+SELECT PS.* FROM PlayerSoccer PS WHERE
+NOT EXISTS (
+SELECT * FROM PlayerInTeam PI
+INNER JOIN Team T ON PI.teamId = T.id
+INNER JOIN Game G ON G.id = PI.gameId
+WHERE PI.playerId = PS.id
+AND G.isFinishedGame = 0
+);
+
+insert:
+INSERT OR REPLACE INTO PlayerSoccer(id, name, level, presented)
+VALUES (?, ?, ?, ?);
+
+insertFullPlayerObject:
+INSERT OR REPLACE INTO PlayerSoccer(id, name, level, presented)
+VALUES ?;
+
+deleteAll:
+DELETE FROM PlayerSoccer;

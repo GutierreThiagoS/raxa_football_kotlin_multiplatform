@@ -14,12 +14,8 @@ import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.outlined.FavoriteBorder
-import androidx.compose.material.icons.outlined.Home
-import androidx.compose.material.icons.outlined.Menu
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableIntStateOf
@@ -32,13 +28,23 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
+import data.local.DatabaseDriverFactory
 import framework.presentation.game_football.GameTeamsPlayerScreen
-import model.NavigatorItem
+import framework.presentation.player_soccer_screen.PlayerSoccerListScreen
+import domain.model.NavigatorItem
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.vectorResource
+import raxafootballkmp.composeapp.generated.resources.Res
+import raxafootballkmp.composeapp.generated.resources.baseline_groups_2
+import raxafootballkmp.composeapp.generated.resources.baseline_stadium
+import raxafootballkmp.composeapp.generated.resources.outline_groups_2
+import raxafootballkmp.composeapp.generated.resources.outline_stadium
 import res.Asset
 
-data class MenuScreen(val id: String = "Home"): Screen {
+data class MenuScreen(
+    val id: String = "Home",
+    val driver: DatabaseDriverFactory
+): Screen {
 
     @OptIn(ExperimentalResourceApi::class)
     @Composable
@@ -46,14 +52,14 @@ data class MenuScreen(val id: String = "Home"): Screen {
 
         val list = listOf(
             NavigatorItem(
-                title = "Inicio",
-                icon = Icons.Outlined.Home,
-                iconSelected = Icons.Filled.Home,
+                title = "Raxa",
+                icon = vectorResource(Res.drawable.outline_stadium),
+                iconSelected = vectorResource(Res.drawable.baseline_stadium),
             ),
             NavigatorItem(
                 title = "Jogadores",
-                icon = Icons.Outlined.Menu,
-                iconSelected = Icons.Filled.List,
+                icon = vectorResource(Res.drawable.outline_groups_2),
+                iconSelected = vectorResource(Res.drawable.baseline_groups_2),
             ),
             NavigatorItem(
                 title = "Meus Times",
@@ -131,7 +137,8 @@ data class MenuScreen(val id: String = "Home"): Screen {
             }
         ) {
             when (selected.value) {
-                0 -> GameTeamsPlayerScreen()
+                0 -> GameTeamsPlayerScreen(driver)
+                1 -> PlayerSoccerListScreen(driver)
                 else -> Box(modifier = Modifier.background(color = Color.Yellow))
             }
         }

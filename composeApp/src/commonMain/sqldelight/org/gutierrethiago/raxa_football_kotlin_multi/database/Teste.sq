@@ -1,0 +1,19 @@
+CREATE TABLE Teste (
+     id INTEGER PRIMARY KEY NOT NULL,
+     name TEXT NOT NULL
+);
+
+getAll:
+SELECT *
+FROM Teste;
+
+insert:
+INSERT OR REPLACE INTO Teste(id, name)
+VALUES (?, ?);
+
+insertFullTesteObject:
+INSERT OR REPLACE INTO Teste(id, name)
+VALUES ?;
+
+removeAll:
+DELETE FROM Teste;

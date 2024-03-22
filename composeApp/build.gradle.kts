@@ -4,6 +4,8 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
+    kotlin("plugin.serialization") version "1.9.22"
+    alias(libs.plugins.sqldelight)
 }
 
 kotlin {
@@ -14,7 +16,7 @@ kotlin {
             }
         }
     }
-    
+
     jvm("desktop")
     
     listOf(
@@ -27,13 +29,19 @@ kotlin {
             isStatic = true
         }
     }
-    
+
+    val ktorVersion = "2.3.7"
+    val dateTimeVersion = "0.4.1"
+
     sourceSets {
         val desktopMain by getting
         
         androidMain.dependencies {
             implementation(libs.compose.ui.tooling.preview)
             implementation(libs.androidx.activity.compose)
+            implementation("io.ktor:ktor-client-android:$ktorVersion")
+            implementation(libs.sqldelight.android)
+            implementation(libs.lottie.android)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -54,12 +62,40 @@ kotlin {
             implementation(libs.voyager.tabNavigator)
             // Transitions
             implementation(libs.voyager.transitions)
+
+            implementation(libs.kotlinx.coroutines.core)
+
+            implementation("io.ktor:ktor-client-core:$ktorVersion")
+            implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
+            implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
+            implementation("org.jetbrains.kotlinx:kotlinx-datetime:$dateTimeVersion")
+            implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
+            implementation(libs.sqldelight.coroutines)
+            implementation("com.airbnb.android:lottie:6.1.0")
+            implementation(libs.lottie.android)
+
+            implementation(libs.skikoCommon)
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
+            implementation(libs.sqldelight.desktop)
         }
+
+
+
+        iosMain.dependencies {
+            implementation("io.ktor:ktor-client-darwin:$ktorVersion")
+            implementation(libs.sqldelight.ios)
+        }
+
+        nativeMain.dependencies {
+            implementation(libs.sqldelight.ios)
+        }
+
     }
 }
+
+
 
 android {
     namespace = "org.gutierrethiago.raxa_football_kotlin_multi"
@@ -94,6 +130,9 @@ android {
         debugImplementation(libs.compose.ui.tooling)
     }
 }
+dependencies {
+    implementation(libs.core)
+}
 
 compose.desktop {
     application {
@@ -103,6 +142,14 @@ compose.desktop {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "org.gutierrethiago.raxa_football_kotlin_multi"
             packageVersion = "1.0.0"
+        }
+    }
+}
+
+sqldelight {
+    databases {
+        create("AppDatabase") {
+            packageName = "org.gutierrethiago.raxa_football_kotlin_multi.database"
         }
     }
 }

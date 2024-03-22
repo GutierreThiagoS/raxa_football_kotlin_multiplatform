@@ -1,0 +1,21 @@
+CREATE TABLE PlayerInTeam (
+    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    gameId INTEGER NOT NULL,
+    playerId INTEGER NOT NULL,
+    name TEXT NOT NULL,
+    teamId INTEGER NOT NULL,
+    goals INTEGER NOT NULL
+);
+
+getAll:
+SELECT * FROM PlayerInTeam;
+
+getAllInTeamAndGame:
+SELECT * FROM PlayerInTeam WHERE gameId = ? AND teamId = ?;
+
+insert:
+INSERT OR REPLACE INTO PlayerInTeam (id, gameId, playerId, name, teamId, goals)
+VALUES (?, ?, ?,?, ?, ?);
+
+deleteAll:
+DELETE FROM PlayerInTeam;
